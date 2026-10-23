@@ -1,0 +1,17 @@
+# Example Render blueprint for the backend (not deployed by this repo's author unless stated in README).
+services:
+  - type: web
+    name: wind-api
+    runtime: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /health
+    disk:
+      name: wind-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: CORS_ORIGINS
+        sync: false   # set to the Vercel frontend origin
+      - key: REFRESH_TOKEN
+        sync: false
