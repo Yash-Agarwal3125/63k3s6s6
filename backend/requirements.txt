@@ -1,0 +1,5 @@
+fastapi==0.134.0
+uvicorn[standard]==0.34.0
+pandas==2.3.3
+numpy>=1.26,<3
+httpx==0.28.1
