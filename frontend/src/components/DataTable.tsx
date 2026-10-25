@@ -31,6 +31,7 @@ export function DataTable({ rows }: { rows: GenRow[] }) {
               <th>Actual (MW)</th><th>Signed error (MW)</th><th>Abs error (MW)</th><th>Latest forecast (MW)</th><th>Status</th></tr>
           </thead>
           <tbody>
+            {shown.length === 0 && <tr><td colSpan={9} className="na">No periods match this status filter.</td></tr>}
             {slice.map((r) => (
               <tr key={r.start_utc}>
                 <td>{r.start_local}</td><td>{r.settlement_period}</td>

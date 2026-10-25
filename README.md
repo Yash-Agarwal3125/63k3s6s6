@@ -100,7 +100,11 @@ cd frontend && npm run typecheck && npm run lint && npm test && npm run build
 ```
 
 ## Deployment
-See the status section in [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) and `docs/ARCHITECTURE.md`. Intended: React on Vercel (`frontend/vercel.json`, set `VITE_API_BASE_URL` to the backend URL), FastAPI container on a Python/container host (`render.yaml`, persistent disk for SQLite), `CORS_ORIGINS` set to the Vercel origin. **Public URLs: not deployed yet** (see checklist for status; none are claimed here).
+Live (deployed 2026-10-25, verified end to end in Chrome):
+- Frontend (Vercel): https://63k3s6s6.vercel.app
+- Backend API (Render, free plan): https://wind-api-y73h.onrender.com (`/health`, `/api/v1/*`)
+
+The Render free instance sleeps after inactivity, so the first request can take ~50 s, and it has no disk: SQLite is rebuilt from Elexon on start (`AUTO_INGEST_ON_EMPTY`). Config: React on Vercel (`frontend/vercel.json`, `VITE_API_BASE_URL` = backend URL), FastAPI container on Render (`render.yaml`; root dir `backend`), `CORS_ORIGINS` = the Vercel origin.
 
 ## Troubleshooting
 - *UI shows "Data not loaded yet"*: first ingest still running; retry in a minute, or check `/health`.

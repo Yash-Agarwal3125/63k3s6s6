@@ -6,4 +6,4 @@
 - [x] Docker / compose verified
 - [x] Docs, README, checklist
 - [x] Public GitHub repo
-- [ ] Public deployment (blocked: no Vercel/Heroku auth) - see SUBMISSION_CHECKLIST.md
+- [x] Public deployment (Render + Vercel), E2E tested in Chrome
