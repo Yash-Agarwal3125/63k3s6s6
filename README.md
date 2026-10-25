@@ -2,7 +2,7 @@
 
 Web application for a UK electricity utility's day-ahead desk. It answers: *"Which national wind forecast could we actually see before the day-ahead decision, and how accurate was it against realised wind generation in January 2026?"*
 
-**Live demo:** https://63k3s6s6.vercel.app  |  **API:** https://wind-api-y73h.onrender.com/health  |  **Source:** https://github.com/Yash-Agarwal3125/63k3s6s6
+**Live demo:** https://63k3s6s6.vercel.app  |  **API:** https://wind-api-y73h.onrender.com/health  |  **Source:** https://github.com/Yash-Agarwal3125/63k3s6s6  |  **Demo video:** https://youtu.be/QLfqTOV066g
 
 > The API runs on a free Render instance that sleeps when idle. If the dashboard shows "Cannot reach the analytics API", wait about a minute and press Retry.
 
