@@ -2,6 +2,10 @@
 
 Web application for a UK electricity utility's day-ahead desk. It answers: *"Which national wind forecast could we actually see before the day-ahead decision, and how accurate was it against realised wind generation in January 2026?"*
 
+**Live demo:** https://63k3s6s6.vercel.app  |  **API:** https://wind-api-y73h.onrender.com/health  |  **Source:** https://github.com/Yash-Agarwal3125/63k3s6s6
+
+> The API runs on a free Render instance that sleeps when idle. If the dashboard shows "Cannot reach the analytics API", wait about a minute and press Retry.
+
 All data comes from the **Elexon BMRS API only** (`WINDFOR` forecasts, `FUELHH` actuals). No demand, price, weather or other generation data is used.
 
 ## Features
@@ -52,8 +56,7 @@ backend/Dockerfile, requirements*.txt
 frontend/src/{api,hooks,types,utils,styles,components,pages,test}   React + TS (Vite), Recharts
 frontend/Dockerfile, nginx.conf, vercel.json
 docker-compose.yml, render.yaml, .env.example
-docs/                                                     ARCHITECTURE, DATA_METHODOLOGY, TECHNICAL_WALKTHROUGH, CUSTOMER_DEMO_GUIDE
-SUBMISSION_CHECKLIST.md, TASKS.md
+docs/                                                     ARCHITECTURE.md, DATA_METHODOLOGY.md
 ```
 
 ## Prerequisites
@@ -100,11 +103,9 @@ cd frontend && npm run typecheck && npm run lint && npm test && npm run build
 ```
 
 ## Deployment
-Live (deployed 2026-10-25, verified end to end in Chrome):
-- Frontend (Vercel): https://63k3s6s6.vercel.app
-- Backend API (Render, free plan): https://wind-api-y73h.onrender.com (`/health`, `/api/v1/*`)
-
-The Render free instance sleeps after inactivity, so the first request can take ~50 s, and it has no disk: SQLite is rebuilt from Elexon on start (`AUTO_INGEST_ON_EMPTY`). Config: React on Vercel (`frontend/vercel.json`, `VITE_API_BASE_URL` = backend URL), FastAPI container on Render (`render.yaml`; root dir `backend`), `CORS_ORIGINS` = the Vercel origin.
+- Frontend: Vercel (root `frontend`, preset Vite, env `VITE_API_BASE_URL` = backend URL).
+- Backend: Render web service from `render.yaml` (Docker, free plan). Set `CORS_ORIGINS` to the Vercel origin.
+- The free Render instance sleeps after inactivity (first request ~50 s) and has no disk, so SQLite is rebuilt from Elexon on start (`AUTO_INGEST_ON_EMPTY`). Add a persistent disk on a paid plan to keep the database between restarts.
 
 ## Troubleshooting
 - *UI shows "Data not loaded yet"*: first ingest still running; retry in a minute, or check `/health`.

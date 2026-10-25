@@ -1,15 +1,13 @@
-# Example Render blueprint for the backend (not deployed by this repo's author unless stated in README).
+# Render blueprint for the backend (Docker). Free plan: no disk, data is re-ingested from Elexon on start.
+# On a paid plan, add a disk mounted at /data to persist the SQLite database.
 services:
   - type: web
     name: wind-api
     runtime: docker
+    plan: free
     dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
     healthCheckPath: /health
-    disk:
-      name: wind-data
-      mountPath: /data
-      sizeGB: 1
     envVars:
       - key: CORS_ORIGINS
         sync: false   # set to the Vercel frontend origin

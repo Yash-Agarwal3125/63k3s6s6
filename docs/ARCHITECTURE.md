@@ -54,7 +54,7 @@ Elexon calls: timeout, retry with exponential backoff on 429/5xx/transport error
 No secrets in code. `POST /refresh` is disabled unless `REFRESH_TOKEN` is set, uses constant-time comparison, and a lock plus 409 prevents concurrent runs. CORS allowlist via env. Container runs as non-root. Parameters are validated; SQL is parameterised.
 
 ## Deployment
-Local/Docker: nginx(8080) → FastAPI(8000), volume for SQLite. Hosted (intended): static frontend on Vercel with `VITE_API_BASE_URL`, backend container on a host with a persistent disk (`render.yaml`); the backend self-ingests when its database is empty, so even ephemeral disks recover (cold start ≈ 1 minute).
+Local/Docker: nginx(8080) → FastAPI(8000), volume for SQLite. Hosted: static frontend on Vercel with `VITE_API_BASE_URL`, backend container on Render (`render.yaml`, free plan, no disk). The backend self-ingests when its database is empty, so an ephemeral disk recovers on its own (cold start ≈ 1 minute); add a persistent disk on a paid plan to keep the database.
 
 ## Trade-offs
 SQLite + pandas: tiny data (≈20k forecast rows), simple ops, single-writer. A per-request recompute is cheap and avoids stale derived tables. Charts use hourly rows only so they align with the metric basis; half-hourly detail lives in the table.
